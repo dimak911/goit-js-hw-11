@@ -32,7 +32,7 @@ function makeImgCard({
   downloads,
 }) {
   return `<div class="photo-card">
-                  <img src="${webformatURL}" alt="" loading="lazy" width="400" />
+                  <img src="${webformatURL}" alt="${tags}" loading="lazy" width="400" />
                   <div class="info">
                     <p class="info-item">
                       <b>Likes: ${likes}</b>
