@@ -1,8 +1,47 @@
 @import './common';
 @import './example';
 
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
 .gallery {
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
+  gap: 15px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.photo-card {
+  outline: 1px solid grey;
+  border-radius: 5%;
+  flex-basis: calc((100% - 15px * 10) / 5);
+  flex-grow: 1;
+  box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.75);
+}
+
+.photo-card-img {
+  border-top-left-radius: 5%;
+  border-top-right-radius: 5%;
 }

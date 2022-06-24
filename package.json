@@ -12,7 +12,7 @@
     "url": "git+https://https://github.com/dimak911/goit-js-hw-11.git"
   },
   "keywords": [],
-  "author": "Alexander Repeta <alexander.repeta@gmail.com>",
+  "author": "Dmitriy Kniagnitskiy <dimak911@gmail.com>",
   "license": "ISC",
   "bugs": {
     "url": "https://https://github.com/dimak911/goit-js-hw-11/issues"
@@ -20,7 +20,8 @@
   "dependencies": {
     "axios": "^0.27.2",
     "modern-normalize": "^1.1.0",
-    "notiflix": "^3.2.5"
+    "notiflix": "^3.2.5",
+    "simplelightbox": "^2.10.3"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.6.0",

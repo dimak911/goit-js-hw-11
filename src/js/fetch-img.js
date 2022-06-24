@@ -17,6 +17,7 @@ export async function getImage(query) {
     const totalHits = response.data.totalHits;
 
     if (totalHits > 0) {
+      successAlert(totalHits);
       return response.data.hits;
     } else {
       throw new Error();
@@ -26,4 +27,8 @@ export async function getImage(query) {
       'Sorry, there are no images matching your search query. Please try again.'
     );
   }
+}
+
+function successAlert(hits) {
+  Notify.success(`Hooray! We found ${hits} images.`);
 }

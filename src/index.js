@@ -1,5 +1,5 @@
-// import axios from 'axios';
-import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
 import { getImage } from './js/fetch-img.js';
 
 const refs = {
@@ -17,6 +17,8 @@ function searchImg(event) {
   const MatchedImages = getImage(searchQuery.value);
 
   MatchedImages.then(images => {
+    // console.log(images);
+
     const galleryMarkup = images.map(img => makeImgCard(img)).join('');
     makeGallery(galleryMarkup);
   });
@@ -32,24 +34,36 @@ function makeImgCard({
   downloads,
 }) {
   return `<div class="photo-card">
-                  <img src="${webformatURL}" alt="${tags}" loading="lazy" width="400" />
-                  <div class="info">
-                    <p class="info-item">
-                      <b>Likes: ${likes}</b>
-                    </p>
-                    <p class="info-item">
-                      <b>Views: ${views}</b>
-                    </p>
-                    <p class="info-item">
-                      <b>Comments: ${comments}</b>
-                    </p>
-                    <p class="info-item">
-                      <b>Downloads: ${downloads}</b>
-                    </p>
-                  </div>
-                </div>`;
+            <a href="${largeImageURL}">
+              <img
+                class="photo-card-img"
+                src="${webformatURL}"
+                alt="${tags}"
+                loading="lazy"
+              />
+            </a>
+              <div class="info">
+                <p class="info-item">
+                  <span><b>Likes</b></span>
+                  <span>${likes}</span>
+                </p>
+                <p class="info-item">
+                  <span><b>Views</b></span>
+                  <span>${views}</span>
+                </p>
+                <p class="info-item">
+                  <span><b>Comments</b></span>
+                  <span>${comments}</span>
+                </p>
+                <p class="info-item">
+                  <span><b>Downloads</b></span>
+                  <span>${downloads}</span>
+                </p>
+              </div>
+            </div>`;
 }
 
 function makeGallery(images) {
   refs.gallery.innerHTML = images;
+  const lightbox = new SimpleLightbox('.gallery a');
 }
