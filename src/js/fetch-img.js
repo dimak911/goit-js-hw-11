@@ -35,7 +35,10 @@ export async function getImage(query) {
       }
       page += 1;
 
-      return response.data.hits;
+      return {
+        images: response.data.hits,
+        page,
+      };
     } else {
       throw new Error();
     }

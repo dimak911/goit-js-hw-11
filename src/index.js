@@ -2,6 +2,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { getImage } from './js/fetch-img.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
+import InfiniteScroll from 'infinite-scroll';
 
 const refs = {
   form: document.querySelector('#search-form'),
@@ -79,7 +80,7 @@ function loadAndRenderImgs() {
 
   hideLoadMoreBtn();
 
-  MatchedImages.then(images => {
+  MatchedImages.then(({ images, page }) => {
     if (images === 'end') {
       hideLoadMoreBtn();
       Notify.info("We're sorry, but you've reached the end of search results.");
@@ -91,6 +92,16 @@ function loadAndRenderImgs() {
       showLoadMoreBtn();
       const galleryMarkup = images.map(img => makeImgCard(img)).join('');
       makeGallery(galleryMarkup);
+      if (page > 2) {
+        const { height: cardHeight } = document
+          .querySelector('.gallery')
+          .firstElementChild.getBoundingClientRect();
+
+        window.scrollBy({
+          top: cardHeight * 2,
+          behavior: 'smooth',
+        });
+      }
     } else {
       return;
     }
@@ -103,4 +114,27 @@ function hideLoadMoreBtn() {
 
 function showLoadMoreBtn() {
   refs.loadMoreBtn.classList.remove('is-hidden');
+}
+
+// scroll to top
+const toTopBtn = document.getElementById('myBtn');
+
+window.onscroll = function () {
+  scrollFunction();
+};
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    toTopBtn.style.display = 'block';
+    toTopBtn.addEventListener('click', topFunction);
+  } else {
+    toTopBtn.style.display = 'none';
+  }
+}
+
+function topFunction() {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth',
+  });
 }
