@@ -2,7 +2,6 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 import { getImage } from './js/fetch-img.js';
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
-import InfiniteScroll from 'infinite-scroll';
 
 const refs = {
   form: document.querySelector('#search-form'),
