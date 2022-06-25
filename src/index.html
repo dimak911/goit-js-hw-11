@@ -3,25 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Page title</title>
+    <title>Gallery</title>
     <link rel="stylesheet" href="./sass/index.scss" />
   </head>
   <body>
-    <form class="search-form" id="search-form">
-      <input
-        type="text"
-        name="searchQuery"
-        autocomplete="off"
-        placeholder="Search images..."
-      />
-      <button type="submit">Search</button>
-    </form>
+    <div class="header">
+      <form class="search-form" id="search-form">
+        <input
+          class="search-input"
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit">Search</button>
+      </form>
+    </div>
 
-    <section>
+    <section class="gallery-wrapper">
       <div class="container">
         <div class="gallery">
           <!-- Карточки изображений -->
         </div>
+        <button type="button" class="load-more is-hidden">Load more</button>
       </div>
     </section>
 
