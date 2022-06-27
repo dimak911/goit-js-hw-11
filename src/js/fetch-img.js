@@ -2,7 +2,7 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
 import { smoothScrollDown } from '../index';
 
-const BASE_URL = 'https://pixabay.com/';
+axios.defaults.baseURL = 'https://pixabay.com';
 let page = 1;
 let currentQuery = '';
 
@@ -13,7 +13,7 @@ export async function getImage(query) {
     }
 
     currentQuery = query;
-    const response = await axios.get(`${BASE_URL}api/`, {
+    const response = await axios.get('/api/', {
       params: {
         key: '28213280-eb811a12977e7e61e372ebe76',
         q: currentQuery,
@@ -21,17 +21,11 @@ export async function getImage(query) {
         orientation: 'horizontal',
         safesearch: 'true',
         page,
-        per_page: 190,
+        per_page: 40,
       },
     });
 
     const totalHits = response.data.totalHits;
-
-    console.log(response);
-
-    // if (response.status === 400) {
-    //   throw new Error(400);
-    // }
 
     if (totalHits > 0) {
       if (page === 1) {

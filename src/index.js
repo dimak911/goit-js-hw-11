@@ -142,7 +142,7 @@ function topFunction() {
 
 // infinite scroll
 const options = {
-  rootMargin: '0px',
+  rootMargin: '200px',
   threshold: 1.0,
 };
 
