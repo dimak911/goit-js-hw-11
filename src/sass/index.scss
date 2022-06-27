@@ -126,3 +126,18 @@ button[type="submit"] {
 #myBtn:hover {
   background-color: #555;
 }
+
+.wrapper-the-end {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: orange;
+  padding: 0 200px;
+}
+
+.the-end {
+  font-weight: 700;
+  font-size: 28px;
+  text-align: center;
+
+}

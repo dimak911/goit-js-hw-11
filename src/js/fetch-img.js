@@ -1,5 +1,7 @@
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 import axios from 'axios';
+import { smoothScrollDown } from '../index';
+
 const BASE_URL = 'https://pixabay.com/';
 let page = 1;
 let currentQuery = '';
@@ -19,15 +21,17 @@ export async function getImage(query) {
         orientation: 'horizontal',
         safesearch: 'true',
         page,
-        per_page: 40,
+        per_page: 190,
       },
     });
 
     const totalHits = response.data.totalHits;
 
-    if (page * response.data.hits.length > totalHits) {
-      return 'end';
-    }
+    console.log(response);
+
+    // if (response.status === 400) {
+    //   throw new Error(400);
+    // }
 
     if (totalHits > 0) {
       if (page === 1) {
@@ -44,9 +48,22 @@ export async function getImage(query) {
     }
   } catch (error) {
     console.log(error);
-    Notify.failure(
-      'Sorry, there are no images matching your search query. Please try again.'
-    );
+
+    if (error.response) {
+      if (error.response.status === 400) {
+        document.body.insertAdjacentHTML(
+          'beforeend',
+          `<div class="wrapper-the-end">
+          <p class="the-end">This is the end. Try another query.</p>
+        </div>`
+        );
+        smoothScrollDown();
+      }
+    } else {
+      Notify.failure(
+        'Sorry, there are no images matching your search query. Please try again.'
+      );
+    }
   }
 }
 

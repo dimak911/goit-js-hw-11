@@ -18,6 +18,11 @@ function searchImg(event) {
   event.preventDefault();
   refs.gallery.innerHTML = '';
 
+  const endOfItems = document.querySelector('.wrapper-the-end');
+  if (endOfItems) {
+    endOfItems.remove();
+  }
+
   const { searchQuery } = event.target.elements;
   currentQuery = searchQuery.value;
   if (currentQuery) {
@@ -80,26 +85,12 @@ function loadAndRenderImgs() {
   hideLoadMoreBtn();
 
   MatchedImages.then(({ images, page }) => {
-    if (images === 'end') {
-      hideLoadMoreBtn();
-      Notify.info("We're sorry, but you've reached the end of search results.");
-
-      return;
-    }
-
     if (images) {
       showLoadMoreBtn();
       const galleryMarkup = images.map(img => makeImgCard(img)).join('');
       makeGallery(galleryMarkup);
       if (page > 2) {
-        const { height: cardHeight } = document
-          .querySelector('.gallery')
-          .firstElementChild.getBoundingClientRect();
-
-        window.scrollBy({
-          top: cardHeight * 2,
-          behavior: 'smooth',
-        });
+        smoothScrollDown();
       }
     } else {
       return;
@@ -113,6 +104,17 @@ function hideLoadMoreBtn() {
 
 function showLoadMoreBtn() {
   refs.loadMoreBtn.classList.remove('is-hidden');
+}
+
+export function smoothScrollDown() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
+
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
 }
 
 // scroll to top
@@ -137,3 +139,19 @@ function topFunction() {
     behavior: 'smooth',
   });
 }
+
+// infinite scroll
+const options = {
+  rootMargin: '0px',
+  threshold: 1.0,
+};
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting && currentQuery) {
+      loadAndRenderImgs();
+    }
+  });
+}, options);
+
+observer.observe(document.querySelector('.scroll-guard'));
